@@ -3,6 +3,10 @@
 This changelog contains major and/or breaking changes to Kakoune between
 released versions.
 
+== Development Version
+
+* Replace NCursesUI with a custom terminal UI implementation
+
 == Kakoune v2020.01.16
 
 * Expose history tree through `$kak_history` and
