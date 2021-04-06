@@ -4,9 +4,6 @@ sudo: false
 
 os:
   - linux
-  - osx
-
-osx_image: xcode10.1
 
 compiler:
   - clang
@@ -22,21 +19,17 @@ addons:
       - libstdc++-7-dev
       - g++-7
       - libncursesw5-dev
-  homebrew:
-    update: true
-    packages: gcc@7
   coverity_scan:
     project:
       name: "CharlesGueunet/kakoune"
       description: "Build submitted via Travis CI"
     notification_email: charles.gueunet@kitware.com
     build_command_prepend: "cd build && make clean"
-    build_command: "cmake --build . -- -j 4"
+    build_command: "ctest -D Experimental"
     branch_pattern: coverity-scan
 
 script:
   - mkdir -p build
   - cd build
   - cmake ..
-  - cmake --build . -- -j 4
   - ctest -D Experimental
