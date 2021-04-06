@@ -39,4 +39,4 @@ script:
   - cd build
   - cmake ..
   - cmake --build . -- -j 4
-  - ctest
+  - ctest -D Experimental
