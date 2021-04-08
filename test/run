@@ -21,6 +21,7 @@ main() {
 
   cd "$(dirname $0)"
   root="$PWD"
+  kak_exec=${1:-$root/../src/kak}
   tmpdir="${TMPDIR:-/tmp}"
   work=$(mktemp -d $tmpdir/kak-tests.XXXXXXXX)
   session="kak-tests"
@@ -56,7 +57,7 @@ main() {
       if [ -f env ]; then
         . ./env
       fi
-      exec $DEBUGGER $root/../src/kak out -n -s "$session" -ui json -e "$kak_commands" >ui-out <ui-in
+      exec $DEBUGGER $kak_exec out -n -s "$session" -ui json -e "$kak_commands" >ui-out <ui-in
     ) &
     kakpid=$!
 
@@ -70,7 +71,7 @@ main() {
       ui_out '{ "jsonrpc": "2.0", "method": "set_ui_options", "params": [{}] }'
     fi
 
-    finished_commands |$root/../src/kak -p "$session" 2>/dev/null
+    finished_commands |$kak_exec -p "$session" 2>/dev/null
     cat <&4 >/dev/null
 
     wait $kakpid
