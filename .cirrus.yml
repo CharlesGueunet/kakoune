@@ -22,6 +22,8 @@ linux_task:
         - name: linux_clang
           container:
               image: silkeh/clang:13
+          clang_script:
+              - apt-get -y install cmake
           env:
               CXX: clang++
         - name: linux_gcc
@@ -29,7 +31,7 @@ linux_task:
               image: gcc:10
           env:
               CXX: g++
-    test_script: make CXX=$CXX -j$(nproc) test
+    test_script: cmake . && ctest -D Experimental .
     env:
         LC_ALL: en_US.UTF-8
 
