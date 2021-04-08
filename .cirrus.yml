@@ -24,13 +24,13 @@ linux_task:
           container:
               image: silkeh/clang:6
           clang_script:
-              - apt-get -y install pkg-config libncursesw5-dev
+              - apt-get -y install pkg-config libncursesw5-dev cmake
           env:
               CXX: clang++
         - name: linux_gcc
           container:
               image: gcc:7
-    test_script: make -j4 test
+    test_script: cmake . && ctest -D Experimental .
     env:
         LC_ALL: en_US.UTF-8
 
